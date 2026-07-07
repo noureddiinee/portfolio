@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alex Chen — Software Developer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap');
+
+  :root{
+    --ink:#12151C;
+    --paper:#F5F6F8;
+    --paper-dim:#E9EBEF;
+    --line:#D6D9E0;
+    --amber:#E08A00;
+    --teal:#127C77;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .wrap{max-width:840px; margin:0 auto; padding:0 24px;}
+
+  /* ---------- terminal chrome ---------- */
+  .term{
+    max-width:840px;
+    margin:40px auto 0;
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    background:#fff;
+    box-shadow:0 1px 0 var(--line);
+  }
+  .term-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:10px 14px;
+    background:var(--paper-dim);
+    border-bottom:1px solid var(--line);
+  }
+  .dot{width:10px; height:10px; border-radius:50%;}
+  .dot.r{background:#E05B49;} .dot.y{background:#E0A93E;} .dot.g{background:#3EA35C;}
+  .term-title{
+    margin-left:8px; font-family:var(--mono); font-size:12px; color:#6b7280;
+  }
+  .term-body{padding:32px 28px 8px;}
+  .prompt{font-family:var(--mono); font-size:13px; color:var(--teal); margin-bottom:6px;}
+  .prompt::before{content:"$ "; color:#9aa1ad;}
+
+  h1{
+    font-family:var(--mono);
+    font-weight:800;
+    font-size:clamp(28px, 5vw, 42px);
+    letter-spacing:-0.02em;
+    margin-bottom:6px;
+  }
+  .role{
+    font-family:var(--mono);
+    color:var(--amber);
+    font-size:15px;
+    font-weight:500;
+    margin-bottom:20px;
+  }
+  .lede{max-width:56ch; color:#3b3f47; font-size:16px; margin-bottom:26px;}
+  .links{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:28px;}
+  .links a{
+    font-family:var(--mono); font-size:13px;
+    border:1px solid var(--line); border-radius:6px;
+    padding:7px 12px;
+    text-decoration:none;
+    transition:border-color .15s, color .15s;
+  }
+  .links a:hover{border-color:var(--teal); color:var(--teal);}
+
+  /* ---------- sections ---------- */
+  section{padding:52px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .sec-head{
+    display:flex; align-items:baseline; gap:10px;
+    margin-bottom:24px;
+  }
+  .sec-tag{
+    font-family:var(--mono); font-size:12px; color:#9aa1ad;
+  }
+  .sec-title{font-family:var(--mono); font-size:20px; font-weight:700;}
+
+  /* skills as package.json */
+  .pkg{
+    font-family:var(--mono);
+    font-size:13.5px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:22px 24px;
+    overflow-x:auto;
+    color:#2b2f38;
+  }
+  .pkg .k{color:var(--teal);}
+  .pkg .s{color:var(--amber);}
+  .pkg .c{color:#9aa1ad;}
+
+  /* projects as file listing */
+  .proj{
+    display:block;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:18px 20px;
+    margin-bottom:14px;
+    background:#fff;
+    text-decoration:none;
+    color:inherit;
+    transition:border-color .15s, transform .15s;
+  }
+  .proj:hover{border-color:var(--teal); transform:translateX(2px);}
+  .proj-top{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:6px;}
+  .proj-name{font-family:var(--mono); font-weight:700; font-size:15px;}
+  .proj-lang{font-family:var(--mono); font-size:11px; color:#9aa1ad; border:1px solid var(--line); border-radius:4px; padding:2px 7px;}
+  .proj-desc{font-size:14px; color:#4a4f59;}
+
+  /* experience as git log */
+  .commit{display:flex; gap:16px; margin-bottom:22px;}
+  .commit-hash{font-family:var(--mono); font-size:12px; color:var(--amber); flex-shrink:0; padding-top:2px;}
+  .commit-body{border-left:2px solid var(--line); padding-left:16px;}
+  .commit-msg{font-weight:600; font-size:15px; margin-bottom:3px;}
+  .commit-meta{font-family:var(--mono); font-size:12px; color:#9aa1ad; margin-bottom:6px;}
+  .commit-desc{font-size:14px; color:#4a4f59; max-width:60ch;}
+
+  footer{
+    padding:36px 0 60px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:#9aa1ad;
+  }
+  footer .prompt{margin-bottom:2px;}
+
+  @media (max-width:600px){
+    .term{margin:20px 12px 0;}
+    .term-body{padding:24px 18px 4px;}
+    .wrap{padding:0 18px;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="term">
+    <div class="term-bar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="term-title">alex@portfolio — zsh</span>
+    </div>
+    <div class="term-body">
+      <div class="prompt">whoami</div>
+      <h1>Alex Chen</h1>
+      <div class="role">Backend &amp; Tooling Engineer</div>
+      <p class="lede">I build reliable backend systems and the test suites that keep them that way. Currently deep in Python, pytest, and distributed systems.</p>
+      <div class="links">
+        <a href="mailto:alex@example.com">email</a>
+        <a href="https://github.com/yourusername" target="_blank">github</a>
+        <a href="https://linkedin.com/in/yourusername" target="_blank">linkedin</a>
+        <a href="/resume.pdf" target="_blank">resume.pdf</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <section>
+      <div class="sec-head">
+        <span class="sec-tag">01</span>
+        <span class="sec-title">skills.json</span>
+      </div>
+      <div class="pkg">
+<span class="c">{</span><br>
+&nbsp;&nbsp;<span class="k">"languages"</span>: [<span class="s">"python"</span>, <span class="s">"typescript"</span>, <span class="s">"go"</span>],<br>
+&nbsp;&nbsp;<span class="k">"testing"</span>: [<span class="s">"pytest"</span>, <span class="s">"jest"</span>, <span class="s">"playwright"</span>],<br>
+&nbsp;&nbsp;<span class="k">"backend"</span>: [<span class="s">"fastapi"</span>, <span class="s">"postgres"</span>, <span class="s">"redis"</span>],<br>
+&nbsp;&nbsp;<span class="k">"infra"</span>: [<span class="s">"docker"</span>, <span class="s">"github-actions"</span>, <span class="s">"aws"</span>]<br>
+<span class="c">}</span>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head">
+        <span class="sec-tag">02</span>
+        <span class="sec-title">~/projects</span>
+      </div>
+
+      <a class="proj" href="#" target="_blank">
+        <div class="proj-top">
+          <span class="proj-name">test-forge</span>
+          <span class="proj-lang">Python</span>
+        </div>
+        <div class="proj-desc">A pytest plugin that auto-generates edge-case parametrizations from function type hints.</div>
+      </a>
+
+      <a class="proj" href="#" target="_blank">
+        <div class="proj-top">
+          <span class="proj-name">queue-lite</span>
+          <span class="proj-lang">Go</span>
+        </div>
+        <div class="proj-desc">Lightweight persistent job queue built on BoltDB, with at-least-once delivery guarantees.</div>
+      </a>
+
+      <a class="proj" href="#" target="_blank">
+        <div class="proj-top">
+          <span class="proj-name">habit-api</span>
+          <span class="proj-lang">TypeScript</span>
+        </div>
+        <div class="proj-desc">REST API for habit tracking with full integration test coverage — a learning project turned real tool.</div>
+      </a>
+    </section>
+
+    <section>
+      <div class="sec-head">
+        <span class="sec-tag">03</span>
+        <span class="sec-title">git log --experience</span>
+      </div>
+
+      <div class="commit">
+        <div class="commit-hash">a3f9c1e</div>
+        <div class="commit-body">
+          <div class="commit-msg">Backend Engineer @ Company Name</div>
+          <div class="commit-meta">2024 — present</div>
+          <div class="commit-desc">Owned the payments service; cut test flakiness 90% by rebuilding the suite around fixtures and dependency injection.</div>
+        </div>
+      </div>
+
+      <div class="commit">
+        <div class="commit-hash">7d21b48</div>
+        <div class="commit-body">
+          <div class="commit-msg">Software Engineer Intern @ Company Name</div>
+          <div class="commit-meta">2023</div>
+          <div class="commit-desc">Built internal tooling for data pipeline monitoring, adopted team-wide.</div>
+        </div>
+      </div>
+
+      <div class="commit">
+        <div class="commit-hash">1a0e3f2</div>
+        <div class="commit-body">
+          <div class="commit-msg">B.S. Computer Science, University Name</div>
+          <div class="commit-meta">2020 — 2024</div>
+          <div class="commit-desc">Focused on distributed systems and software testing.</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <div class="prompt">echo $CONTACT</div>
+      <div>reach out anytime — alex@example.com</div>
+    </div>
+  </footer>
+
+</body>
+</html>
