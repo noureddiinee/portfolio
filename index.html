@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Noureddine Bendelala - SDET Engineer</title>
+<title>Noureddine Bendelala — QA Engineer / SDET</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap');
 
@@ -122,7 +122,30 @@
   .proj-top{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:6px;}
   .proj-name{font-family:var(--mono); font-weight:700; font-size:15px;}
   .proj-lang{font-family:var(--mono); font-size:11px; color:#9aa1ad; border:1px solid var(--line); border-radius:4px; padding:2px 7px;}
-  .proj-desc{font-size:14px; color:#4a4f59;}
+  .proj-desc{font-size:14px; color:#4a4f59; margin-bottom:12px;}
+  .proj-tags{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px;}
+  .proj-tag{
+    font-family:var(--mono); font-size:11px; color:var(--teal);
+    background:rgba(18,124,119,0.08);
+    border-radius:4px; padding:2px 8px;
+  }
+  .proj-stats{
+    display:flex; flex-wrap:wrap; gap:16px;
+    font-family:var(--mono); font-size:12px; color:#6b7280;
+    border-top:1px dashed var(--line); padding-top:10px;
+    margin-bottom:10px;
+  }
+  .proj-stats span{display:flex; align-items:center; gap:5px;}
+  .proj-stats .num{color:var(--amber); font-weight:700;}
+  .proj-footer{
+    display:flex; align-items:center; justify-content:space-between;
+    font-family:var(--mono); font-size:11.5px; color:#9aa1ad;
+  }
+  .proj-view{
+    color:var(--teal); text-decoration:none; font-weight:600;
+    display:inline-flex; align-items:center; gap:4px;
+  }
+  .proj:hover .proj-view{text-decoration:underline;}
 
   /* experience as git log */
   .commit{display:flex; gap:16px; margin-bottom:22px;}
@@ -152,7 +175,7 @@
   <div class="term">
     <div class="term-bar">
       <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-      <span class="term-title">noureddine@portfolio — zsh</span>
+      <span class="term-title">alex@portfolio — zsh</span>
     </div>
     <div class="term-body">
       <div class="prompt">whoami</div>
@@ -160,10 +183,8 @@
       <div class="role">QA Engineer / SDET</div>
       <p class="lede">QA Engineer experienced in manual and automation testing — writing comprehensive test cases, executing test plans, and tracking bugs to ensure software quality. Detail-oriented and proactive, actively expanding into automation through hands-on projects.</p>
       <div class="links">
-        <a href="mailto:bendelala6@gmail.com">email</a>
+        <a href="mailto:your.email@example.com">email</a>
         <a href="https://github.com/noureddiinee" target="_blank">github</a>
-        <a href="https://www.linkedin.com/in/noureddine-bendelala-542a5531a" target="_blank">linkedin</a>
-        <a href="/resume.pdf" target="_blank">resume.pdf</a>
       </div>
     </div>
   </div>
@@ -177,10 +198,10 @@
       </div>
       <div class="pkg">
 <span class="c">{</span><br>
-&nbsp;&nbsp;<span class="k">"languages"</span>: [<span class="s">"python"</span>, <span class="s">"Java"</span>],<br>
-&nbsp;&nbsp;<span class="k">"testing"</span>: [<span class="s">"pytest"</span>, <span class="s">"JUnit"</span>, <span class="s">"mockito"</span>, <span class="s">"manual test design"</span>, ],<br>
-&nbsp;&nbsp;<span class="k">"tools"</span>: [<span class="s">"Eclipse"</span>, <span class="s">"git"</span>, <span class="s">"Gradle"</span>, <span class="s">"GitHub"</span>],<br>
-&nbsp;&nbsp;<span class="k">"focus"</span>: [<span class="s">"SDET"</span>, <span class="s">"QA - Automation"</span>, <span class="s">"test-driven development"</span>]<br>
+&nbsp;&nbsp;<span class="k">"languages"</span>: [<span class="s">"java"</span>, <span class="s">"javascript"</span>],<br>
+&nbsp;&nbsp;<span class="k">"testing"</span>: [<span class="s">"junit"</span>, <span class="s">"mockito"</span>, <span class="s">"manual test design"</span>],<br>
+&nbsp;&nbsp;<span class="k">"tools"</span>: [<span class="s">"eclipse"</span>, <span class="s">"git"</span>, <span class="s">"github"</span>],<br>
+&nbsp;&nbsp;<span class="k">"focus"</span>: [<span class="s">"SDET"</span>, <span class="s">"QA automation"</span>, <span class="s">"test-driven development"</span>]<br>
 <span class="c">}</span>
       </div>
     </section>
@@ -190,32 +211,8 @@
         <span class="sec-tag">02</span>
         <span class="sec-title">~/projects</span>
       </div>
-      
-<a class="proj" href="https://github.com/noureddiinee/invoice-validator" target="_blank">
-        <div class="proj-top">
-          <span class="proj-name">invoice-validator</span>
-          <span class="proj-lang">Python</span>
-        </div>
-        <div class="proj-desc">Invoice validation library and CLI — checks totals, dates, currency consistency, and duplicate detection across invoice batches. Built to practice real-world pytest patterns: fixtures, parametrization, and custom exception handling.</div>
-        <div class="proj-tags">
-          <span class="proj-tag">Python</span>
-          <span class="proj-tag">pytest</span>
-          <span class="proj-tag">Decimal-safe math</span>
-          <span class="proj-tag">CLI</span>
-          <span class="proj-tag">JSON/CSV parsing</span>
-        </div>
-        <div class="proj-stats">
-          <span>✅ <span class="num">62</span> tests passing</span>
-          <span>📊 <span class="num">99%</span> coverage</span>
-          <span>⚙️ CI-ready exit codes</span>
-        </div>
-        <div class="proj-footer">
-          <span>updated Jul 2026</span>
-          <span class="proj-view">view repo →</span>
-        </div>
-      </a>
-      
-           <a class="proj" href="https://github.com/noureddiinee/BookingSystemV.2" target="_blank">
+
+      <a class="proj" href="https://github.com/noureddiinee/BookingSystemV.2" target="_blank">
         <div class="proj-top">
           <span class="proj-name">BookingSystemV.2</span>
           <span class="proj-lang">Java</span>
@@ -257,6 +254,30 @@
           <span class="proj-view">view repo →</span>
         </div>
       </a>
+
+      <a class="proj" href="https://github.com/noureddiinee/invoice-validator" target="_blank">
+        <div class="proj-top">
+          <span class="proj-name">invoice-validator</span>
+          <span class="proj-lang">Python</span>
+        </div>
+        <div class="proj-desc">Invoice validation library and CLI — checks totals, dates, currency consistency, and duplicate detection across invoice batches. Built to practice real-world pytest patterns: fixtures, parametrization, and custom exception handling.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span>
+          <span class="proj-tag">pytest</span>
+          <span class="proj-tag">Decimal-safe math</span>
+          <span class="proj-tag">CLI</span>
+          <span class="proj-tag">JSON/CSV parsing</span>
+        </div>
+        <div class="proj-stats">
+          <span>✅ <span class="num">62</span> tests passing</span>
+          <span>📊 <span class="num">99%</span> coverage</span>
+          <span>⚙️ CI-ready exit codes</span>
+        </div>
+        <div class="proj-footer">
+          <span>updated Jul 2026</span>
+          <span class="proj-view">view repo →</span>
+        </div>
+      </a>
     </section>
 
     <section>
@@ -269,7 +290,7 @@
         <div class="commit-hash">a3f9c1e</div>
         <div class="commit-body">
           <div class="commit-msg">Self-Taught SDET</div>
-          <div class="commit-meta">2022 — present</div>
+          <div class="commit-meta">2025 — present</div>
           <div class="commit-desc">Learning JUnit, Mockito, and pytest through hands-on projects — building real applications and writing the test suites to go with them.</div>
         </div>
       </div>
@@ -277,8 +298,8 @@
       <div class="commit">
         <div class="commit-hash">7d21b48</div>
         <div class="commit-body">
-          <div class="commit-msg">B.S. Financial Science & Accounting</div>
-          <div class="commit-meta">2018 - 2023</div>
+          <div class="commit-msg">B.S. Financial Science &amp; Accounting</div>
+          <div class="commit-meta">years here</div>
           <div class="commit-desc">Started in finance, transitioned into software testing — bringing an eye for detail and process from accounting into QA and test automation.</div>
         </div>
       </div>
@@ -289,7 +310,7 @@
   <footer>
     <div class="wrap">
       <div class="prompt">echo $CONTACT</div>
-      <div>reach out anytime — bendelala6@gmail.com</div>
+      <div>reach out anytime — your.email@example.com</div>
     </div>
   </footer>
 
