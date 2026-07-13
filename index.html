@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noureddine Bendelala — SDET</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap');
+
+  :root{
+    --ink:#12151C;
+    --paper:#F5F6F8;
+    --paper-dim:#E9EBEF;
+    --line:#D6D9E0;
+    --amber:#E08A00;
+    --teal:#127C77;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  /* animated gradient mesh + dot grid background */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:-10%;
+    z-index:-2;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(18,124,119,0.20), transparent 40%),
+      radial-gradient(circle at 85% 15%, rgba(224,138,0,0.16), transparent 40%),
+      radial-gradient(circle at 75% 85%, rgba(18,124,119,0.16), transparent 40%),
+      radial-gradient(circle at 10% 80%, rgba(224,138,0,0.13), transparent 38%);
+    filter:blur(50px);
+    animation:meshDrift 18s ease-in-out infinite alternate;
+  }
+  @keyframes meshDrift{
+    0%{transform:translate(0,0) scale(1);}
+    100%{transform:translate(-4%,3%) scale(1.12);}
+  }
+  body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background-image:radial-gradient(circle, rgba(18,21,28,0.12) 1px, transparent 1px);
+    background-size:26px 26px;
+    pointer-events:none;
+  }
+  a{color:inherit;}
+  .wrap{max-width:840px; margin:0 auto; padding:0 24px;}
+
+  /* ---------- terminal chrome ---------- */
+  .term{
+    max-width:840px;
+    margin:40px auto 0;
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    background:#fff;
+    box-shadow:0 1px 0 var(--line);
+  }
+  .term-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:10px 14px;
+    background:var(--paper-dim);
+    border-bottom:1px solid var(--line);
+  }
+  .dot{width:10px; height:10px; border-radius:50%;}
+  .dot.r{background:#E05B49;} .dot.y{background:#E0A93E;} .dot.g{background:#3EA35C;}
+  .term-title{
+    margin-left:8px; font-family:var(--mono); font-size:12px; color:#6b7280;
+  }
+  .status-badge{
+    margin-left:auto;
+    display:flex; align-items:center; gap:6px;
+    font-family:var(--mono); font-size:11px; color:#3EA35C;
+  }
+  .status-dot{
+    width:7px; height:7px; border-radius:50%; background:#3EA35C;
+    animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{opacity:1; box-shadow:0 0 0 0 rgba(62,163,92,0.5);}
+    50%{opacity:0.7; box-shadow:0 0 0 4px rgba(62,163,92,0);}
+  }
+
+  .term-body{padding:32px 28px 8px;}
+  .prompt{font-family:var(--mono); font-size:13px; color:var(--teal); margin-bottom:6px;}
+  .prompt::before{content:"$ "; color:#9aa1ad;}
+  .cursor{
+    display:inline-block; width:8px; height:16px; margin-left:2px;
+    background:var(--teal); vertical-align:middle;
+    animation:blink 1s step-end infinite;
+  }
+  @keyframes blink{0%,100%{opacity:1;} 50%{opacity:0;}}
+
+  h1{
+    font-family:var(--mono);
+    font-weight:800;
+    font-size:clamp(28px, 5vw, 44px);
+    letter-spacing:-0.03em;
+    margin-bottom:6px;
+    background:linear-gradient(100deg, var(--teal) 0%, var(--amber) 50%, var(--teal) 100%);
+    background-size:300% auto;
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:shine 4s linear infinite;
+  }
+  @keyframes shine{
+    0%{background-position:0% center;}
+    100%{background-position:300% center;}
+  }
+  .role{
+    font-family:var(--mono);
+    color:var(--amber);
+    font-size:15px;
+    font-weight:500;
+    margin-bottom:20px;
+  }
+  .lede{max-width:56ch; color:#3b3f47; font-size:16px; margin-bottom:24px;}
+
+  .links{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:28px;}
+  .links a{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:var(--mono); font-size:13px;
+    border:1px solid var(--line); border-radius:6px;
+    padding:7px 12px;
+    text-decoration:none;
+    transition:border-color .15s, color .15s, background .15s;
+  }
+  .links a:hover{border-color:var(--teal); color:var(--teal); background:rgba(18,124,119,0.06);}
+  .links a svg{width:14px; height:14px; flex-shrink:0;}
+
+  /* ---------- sections ---------- */
+  section{padding:52px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .sec-head{
+    display:flex; align-items:baseline; gap:10px;
+    margin-bottom:24px;
+  }
+  .sec-tag{
+    font-family:var(--mono); font-size:12px; color:#9aa1ad;
+  }
+  .sec-title{font-family:var(--mono); font-size:20px; font-weight:700;}
+
+  /* skills as package.json */
+  .pkg{
+    font-family:var(--mono);
+    font-size:13.5px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:22px 24px;
+    overflow-x:auto;
+    color:#2b2f38;
+  }
+  .pkg .k{color:var(--teal);}
+  .pkg .s{color:var(--amber);}
+  .pkg .c{color:#9aa1ad;}
+
+  /* projects as file listing */
+  .proj{
+    display:block;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:18px 20px;
+    margin-bottom:14px;
+    background:#fff;
+    text-decoration:none;
+    color:inherit;
+    transition:border-color .15s, transform .15s;
+  }
+  .proj:hover{border-color:var(--teal); transform:translateX(2px);}
+  .proj-top{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:6px;}
+  .proj-name{font-family:var(--mono); font-weight:700; font-size:15px;}
+  .proj-lang{font-family:var(--mono); font-size:11px; color:#9aa1ad; border:1px solid var(--line); border-radius:4px; padding:2px 7px;}
+  .proj-desc{font-size:14px; color:#4a4f59; margin-bottom:12px;}
+  .proj-tags{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px;}
+  .proj-tag{
+    font-family:var(--mono); font-size:11px; color:var(--teal);
+    background:rgba(18,124,119,0.08);
+    border-radius:4px; padding:2px 8px;
+  }
+  .proj-stats{
+    display:flex; flex-wrap:wrap; gap:16px;
+    font-family:var(--mono); font-size:12px; color:#6b7280;
+    border-top:1px dashed var(--line); padding-top:10px;
+    margin-bottom:10px;
+  }
+  .proj-stats span{display:flex; align-items:center; gap:5px;}
+  .proj-stats .num{color:var(--amber); font-weight:700;}
+  .proj-footer{
+    display:flex; align-items:center; justify-content:space-between;
+    font-family:var(--mono); font-size:11.5px; color:#9aa1ad;
+  }
+  .proj-view{
+    color:var(--teal); text-decoration:none; font-weight:600;
+    display:inline-flex; align-items:center; gap:4px;
+  }
+  .proj:hover .proj-view{text-decoration:underline;}
+
+  /* experience as git log */
+  .commit{display:flex; gap:16px; margin-bottom:22px;}
+  .commit-hash{font-family:var(--mono); font-size:12px; color:var(--amber); flex-shrink:0; padding-top:2px;}
+  .commit-body{border-left:2px solid var(--line); padding-left:16px;}
+  .commit-msg{font-weight:600; font-size:15px; margin-bottom:3px;}
+  .commit-meta{font-family:var(--mono); font-size:12px; color:#9aa1ad; margin-bottom:6px;}
+  .commit-desc{font-size:14px; color:#4a4f59; max-width:60ch;}
+
+  .footer-contact{
+    padding:36px 0 60px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:#9aa1ad;
+  }
+  .footer-contact .prompt{margin-bottom:2px;}
+
+  @media (max-width:600px){
+    .term{margin:20px 12px 0;}
+    .term-body{padding:24px 18px 4px;}
+    .wrap{padding:0 18px;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="term">
+    <div class="term-bar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="term-title">noureddine@portfolio — zsh</span>
+      <span class="status-badge"><span class="status-dot"></span>open to opportunities</span>
+    </div>
+    <div class="term-body">
+      <div class="prompt">whoami<span class="cursor"></span></div>
+      <h1>Noureddine Bendelala</h1>
+      <div class="role">SDET</div>
+      <p class="lede">SDET with a solid understanding of code, enabling effective testing and reliable, bug-free software. Experienced across the full testing spectrum, from manual testing to automation, with testing always grounded in how the code actually works.</p>
+
+      <div class="links">
+        <a href="mailto:bendelala6@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m4 4 8 8 8-8"/></svg>
+          email
+        </a>
+        <a href="https://github.com/noureddiinee" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
+          github
+        </a>
+        <a href="https://www.linkedin.com/in/noureddine-bendelala-542a5531a" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8.24h4.56V23H.22V8.24zM8.03 8.24h4.37v2.01h.06c.61-1.15 2.1-2.36 4.32-2.36 4.62 0 5.47 3.04 5.47 7v8.11h-4.56v-7.19c0-1.72-.03-3.93-2.4-3.93-2.4 0-2.77 1.87-2.77 3.8v7.32H8.03V8.24z"/></svg>
+          linkedin
+        </a>
+        <a href="https://noureddiinee.github.io/resume.pdf" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+          resume.pdf
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <section>
+      <div class="sec-head">
+        <span class="sec-tag">01</span>
+        <span class="sec-title">skills.json</span>
+      </div>
+      <div class="pkg">
+<span class="c">{</span><br>
+&nbsp;&nbsp;<span class="k">"languages"</span>: [<span class="s">"python"</span>, <span class="s">"java"</span>],<br>
+&nbsp;&nbsp;<span class="k">"testing"</span>: [<span class="s">"pytest"</span>, <span class="s">"junit"</span>, <span class="s">"mockito"</span>, <span class="s">"manual test design"</span>],<br>
+&nbsp;&nbsp;<span class="k">"tools"</span>: [<span class="s">"eclipse"</span>, <span class="s">"git"</span>, <span class="s">"gradle"</span>, <span class="s">"github"</span>],<br>
+&nbsp;&nbsp;<span class="k">"focus"</span>: [<span class="s">"SDET"</span>, <span class="s">"QA automation"</span>, <span class="s">"test-driven development"</span>]<br>
+<span class="c">}</span>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head">
+        <span class="sec-tag">02</span>
+        <span class="sec-title">~/projects</span>
+      </div>
+
+      <a class="proj" href="https://github.com/noureddiinee/BookingSystemV.2" target="_blank">
+        <div class="proj-top">
+          <span class="proj-name">BookingSystemV.2</span>
+          <span class="proj-lang">Java</span>
+        </div>
+        <div class="proj-desc">Flight booking system with flight, passenger, and booking management — built with JUnit 5 and Mockito to unit test payment and notification logic.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Java</span>
+          <span class="proj-tag">JUnit 5</span>
+          <span class="proj-tag">Mockito</span>
+          <span class="proj-tag">OOP design</span>
+        </div>
+        <div class="proj-stats">
+          <span>🧪 <span class="num">Unit</span> tested core logic</span>
+          <span>💳 Payment &amp; notification mocking</span>
+        </div>
+        <div class="proj-footer">
+          <span>updated Mar 2026</span>
+          <span class="proj-view">view repo →</span>
+        </div>
+      </a>
+
+      <a class="proj" href="https://github.com/noureddiinee/OrangeHRM_QA" target="_blank">
+        <div class="proj-top">
+          <span class="proj-name">OrangeHRM_QA</span>
+          <span class="proj-lang">QA / Manual Testing</span>
+        </div>
+        <div class="proj-desc">Manual QA practice project on the OrangeHRM demo site — test plans, test scenarios, and execution reports covering login and employee management workflows.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Test case design</span>
+          <span class="proj-tag">Test plans</span>
+          <span class="proj-tag">Bug reporting</span>
+        </div>
+        <div class="proj-stats">
+          <span>📋 Login &amp; employee management coverage</span>
+          <span>📝 Full execution reports</span>
+        </div>
+        <div class="proj-footer">
+          <span>updated Apr 2026</span>
+          <span class="proj-view">view repo →</span>
+        </div>
+      </a>
+
+      <a class="proj" href="https://github.com/noureddiinee/invoice-validator" target="_blank">
+        <div class="proj-top">
+          <span class="proj-name">invoice-validator</span>
+          <span class="proj-lang">Python</span>
+        </div>
+        <div class="proj-desc">Invoice validation library and CLI — checks totals, dates, currency consistency, and duplicate detection across invoice batches. Built to practice real-world pytest patterns: fixtures, parametrization, and custom exception handling.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span>
+          <span class="proj-tag">pytest</span>
+          <span class="proj-tag">Decimal-safe math</span>
+          <span class="proj-tag">CLI</span>
+          <span class="proj-tag">JSON/CSV parsing</span>
+        </div>
+        <div class="proj-stats">
+          <span>✅ <span class="num">62</span> tests passing</span>
+          <span>📊 <span class="num">99%</span> coverage</span>
+          <span>⚙️ CI-ready exit codes</span>
+        </div>
+        <div class="proj-footer">
+          <span>updated Jul 2026</span>
+          <span class="proj-view">view repo →</span>
+        </div>
+      </a>
+
+      <a class="proj" href="https://github.com/noureddiinee/parabank-tests" target="_blank">
+        <div class="proj-top">
+          <span class="proj-name">parabank-tests</span>
+          <span class="proj-lang">Python</span>
+        </div>
+        <div class="proj-desc">UI automation suite for a live banking demo app — login, registration, account overview, fund transfers, and bill pay, driven with a real browser via Playwright and structured with the Page Object Model.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Playwright</span>
+          <span class="proj-tag">pytest</span>
+          <span class="proj-tag">Page Object Model</span>
+          <span class="proj-tag">E2E testing</span>
+          <span class="proj-tag">CI-ready retries</span>
+        </div>
+        <div class="proj-stats">
+          <span>✅ <span class="num">15/15</span> tests passing</span>
+          <span>🏦 5 banking workflows covered</span>
+          <span>🔁 Auto-retry on flaky network</span>
+        </div>
+        <div class="proj-footer">
+          <span>updated Jul 2026</span>
+          <span class="proj-view">view repo →</span>
+        </div>
+      </a>
+    </section>
+
+    <section>
+      <div class="sec-head">
+        <span class="sec-tag">03</span>
+        <span class="sec-title">git log --experience</span>
+      </div>
+
+      <div class="commit">
+        <div class="commit-hash">a3f9c1e</div>
+        <div class="commit-body">
+          <div class="commit-msg">Self-Taught SDET</div>
+          <div class="commit-meta">2022 — present</div>
+          <div class="commit-desc">Learning JUnit, Mockito, and pytest through hands-on projects — building real applications and writing the test suites to go with them.</div>
+        </div>
+      </div>
+
+      <div class="commit">
+        <div class="commit-hash">7d21b48</div>
+        <div class="commit-body">
+          <div class="commit-msg">B.S. Financial Science &amp; Accounting</div>
+          <div class="commit-meta">2018 — 2023</div>
+          <div class="commit-desc">Started in finance, transitioned into software testing — bringing an eye for detail and process from accounting into QA and test automation.</div>
+        </div>
+      </div>
+    </section>
+
+      <div class="footer-contact">
+        <div class="prompt">echo $CONTACT</div>
+        <div>reach out anytime — bendelala6@gmail.com</div>
+      </div>
+
+  </div>
+
+</body>
+</html>
